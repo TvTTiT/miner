@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://bminer001goldminer"]
+
+[ext_resource type="Script" path="res://scripts/miner.gd" id="1_miner"]
+[ext_resource type="Script" path="res://scripts/claw.gd" id="2_claw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_claw"]
+radius = 12.0
+
+[node name="Miner" type="Node2D"]
+script = ExtResource("1_miner")
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = -10.0
+offset_right = 18.0
+offset_bottom = 30.0
+color = Color(0.2, 0.45, 0.85, 1)
+
+[node name="Face" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 18.0
+color = Color(0.95, 0.78, 0.62, 1)
+
+[node name="Hat" type="ColorRect" parent="."]
+offset_left = -22.0
+offset_top = -18.0
+offset_right = 22.0
+offset_bottom = -2.0
+color = Color(0.75, 0.15, 0.1, 1)
+
+[node name="Claw" type="Node2D" parent="."]
+position = Vector2(0, 20)
+script = ExtResource("2_claw")
+
+[node name="Rope" type="Line2D" parent="Claw"]
+width = 3.0
+default_color = Color(0.3, 0.2, 0.1, 1)
+
+[node name="ClawHead" type="Node2D" parent="Claw"]
+
+[node name="ClawLeft" type="Line2D" parent="Claw/ClawHead"]
+width = 4.0
+default_color = Color(0.55, 0.55, 0.6, 1)
+
+[node name="ClawRight" type="Line2D" parent="Claw/ClawHead"]
+width = 4.0
+default_color = Color(0.55, 0.55, 0.6, 1)
+
+[node name="ClawArea" type="Area2D" parent="Claw/ClawHead"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Claw/ClawHead/ClawArea"]
+shape = SubResource("CircleShape2D_claw")
