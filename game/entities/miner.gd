@@ -9,6 +9,7 @@ extends Node2D
 
 func _ready() -> void:
 	claw.item_delivered.connect(_on_item_delivered)
+	claw.chest_delivered.connect(_on_chest_delivered)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -18,3 +19,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_item_delivered(item: MineItem) -> void:
 	get_parent().register_item_collected(item)
+
+
+func _on_chest_delivered(chest: TreasureChest) -> void:
+	get_parent().register_chest_collected(chest)

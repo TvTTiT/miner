@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://du06lib2miiuf"]
 
-[ext_resource type="Script" uid="uid://bc4sud5g72ynb" path="res://scripts/game_manager.gd" id="1_main"]
-[ext_resource type="PackedScene" uid="uid://d0w2wnpmk55e4" path="res://scenes/miner.tscn" id="2_miner"]
+[ext_resource type="Script" uid="uid://bc4sud5g72ynb" path="res://game/systems/game_manager.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://d0w2wnpmk55e4" path="res://game/scenes/miner.tscn" id="2_miner"]
+[ext_resource type="PackedScene" uid="uid://bchestcin001gold" path="res://game/scenes/chest_cinematic.tscn" id="3_cinematic"]
 
 [node name="Main" type="Node2D" unique_id=1757981366]
 script = ExtResource("1_main")
@@ -15,6 +16,8 @@ script = ExtResource("1_main")
 [node name="Items" type="Node2D" parent="." unique_id=1764435562]
 
 [node name="Miner" parent="." unique_id=216253605 instance=ExtResource("2_miner")]
+
+[node name="ChestCinematic" parent="." instance=ExtResource("3_cinematic")]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1643624211]
 
@@ -44,11 +47,20 @@ text = "Goal: $650"
 [node name="LevelLabel" type="Label" parent="HUD" unique_id=862594943]
 offset_left = 460.0
 offset_top = 12.0
-offset_right = 620.0
+offset_right = 600.0
 offset_bottom = 44.0
 theme_override_colors/font_color = Color(0.7, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 22
-text = "Level 1"
+text = "Depth 1"
+
+[node name="RunLabel" type="Label" parent="HUD" unique_id=862594944]
+offset_left = 610.0
+offset_top = 12.0
+offset_right = 760.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.85, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Run: $0"
 
 [node name="TimerLabel" type="Label" parent="HUD" unique_id=515660333]
 offset_left = 780.0
@@ -67,7 +79,7 @@ offset_right = 660.0
 offset_bottom = 630.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.6)
 theme_override_font_sizes/font_size = 16
-text = "Space / Click — Drop Claw"
+text = "Space — Claw  |  Hook chests for loot  |  ESC — Pause"
 horizontal_alignment = 1
 
 [node name="Overlay" type="CanvasLayer" parent="." unique_id=1377063107]
@@ -79,13 +91,13 @@ offset_bottom = 640.0
 color = Color(0, 0, 0, 0.55)
 
 [node name="TitleLabel" type="Label" parent="Overlay" unique_id=1397731776]
-offset_left = 180.0
-offset_top = 200.0
-offset_right = 780.0
-offset_bottom = 300.0
+offset_left = 112.0
+offset_top = 195.0
+offset_right = 881.0
+offset_bottom = 295.0
 theme_override_colors/font_color = Color(1, 0.82, 0.15, 1)
 theme_override_font_sizes/font_size = 64
-text = "GOLD MINER"
+text = "GOLD MINER ROGUELIKE"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="Overlay" unique_id=810337295]

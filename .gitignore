@@ -1,1 +1,9 @@
+# Godot
+.godot/
+*.translation
+
+# OS
+.DS_Store
+
+# Addons (installed locally, not versioned)
 /addons

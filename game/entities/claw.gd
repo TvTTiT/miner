@@ -4,6 +4,7 @@ extends Node2D
 enum State { SWINGING, EXTENDING, RETRACTING }
 
 signal item_delivered(item: MineItem)
+signal chest_delivered(chest: TreasureChest)
 signal state_changed(state: State)
 
 const SWING_SPEED := 1.8
@@ -18,8 +19,14 @@ const CLAW_OPEN_ANGLE := 0.35
 var state: State = State.SWINGING
 var swing_time: float = 0.0
 var rope_length: float = 40.0
-var grabbed_item: MineItem = null
+var grabbed: Node2D = null
 var base_angle: float = 0.0
+
+var retract_multiplier := 1.0
+var extend_multiplier := 1.0
+var swing_multiplier := 1.0
+var weight_resistance_multiplier := 1.0
+var max_rope_multiplier := 1.0
 
 @onready var rope: Line2D = $Rope
 @onready var claw_head: Node2D = $ClawHead
@@ -33,6 +40,27 @@ func _ready() -> void:
 	claw_area.collision_mask = 2
 	claw_area.area_entered.connect(_on_area_entered)
 	_update_visuals()
+
+
+func apply_upgrades(upgrade_ids: Array[String]) -> void:
+	retract_multiplier = 1.0
+	extend_multiplier = 1.0
+	swing_multiplier = 1.0
+	weight_resistance_multiplier = 1.0
+	max_rope_multiplier = 1.0
+
+	for upgrade_id in upgrade_ids:
+		match upgrade_id:
+			"quick_reel":
+				retract_multiplier += 0.3
+			"long_rope":
+				max_rope_multiplier += 0.2
+			"fast_swing":
+				swing_multiplier += 0.25
+			"light_touch":
+				weight_resistance_multiplier += 0.25
+			"steady_hand":
+				extend_multiplier += 0.2
 
 
 func _process(delta: float) -> void:
@@ -49,23 +77,24 @@ func _process(delta: float) -> void:
 func _process_swing(delta: float) -> void:
 	if not swing_enabled:
 		return
-	swing_time += delta * SWING_SPEED
+	swing_time += delta * SWING_SPEED * swing_multiplier
 	rotation = sin(swing_time) * SWING_AMPLITUDE
 
 
 func _process_extend(delta: float) -> void:
-	rope_length += EXTEND_SPEED * delta
-	if rope_length >= MAX_ROPE_LENGTH:
+	rope_length += EXTEND_SPEED * extend_multiplier * delta
+	if rope_length >= MAX_ROPE_LENGTH * max_rope_multiplier:
 		_start_retract()
 
 
 func _process_retract(delta: float) -> void:
-	var speed := RETRACT_SPEED_BASE
-	if grabbed_item:
-		speed /= grabbed_item.weight
+	var speed := RETRACT_SPEED_BASE * retract_multiplier
+	if grabbed is MineItem or grabbed is TreasureChest:
+		var weight_factor := maxf(0.35, grabbed.weight - weight_resistance_multiplier * 0.5)
+		speed /= weight_factor
 	rope_length = maxf(40.0, rope_length - speed * delta)
-	if grabbed_item:
-		grabbed_item.global_position = claw_head.global_position
+	if grabbed:
+		grabbed.global_position = claw_head.global_position
 	if rope_length <= 40.0:
 		_finish_retract()
 
@@ -84,24 +113,26 @@ func _start_retract() -> void:
 
 
 func _finish_retract() -> void:
-	if grabbed_item:
-		var item := grabbed_item
-		grabbed_item = null
-		item_delivered.emit(item)
+	if grabbed:
+		var payload := grabbed
+		grabbed = null
+		if payload is MineItem:
+			item_delivered.emit(payload)
+		elif payload is TreasureChest:
+			chest_delivered.emit(payload)
 	state = State.SWINGING
 	swing_time = 0.0
 	state_changed.emit(state)
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if state != State.EXTENDING or grabbed_item:
+	if state != State.EXTENDING or grabbed:
 		return
-	if area is MineItem:
-		var item := area as MineItem
-		grabbed_item = item
-		item.grab()
-		item.call_deferred("reparent", claw_head)
-		item.call_deferred("set", "position", Vector2.ZERO)
+	if area is MineItem or area is TreasureChest:
+		grabbed = area
+		area.grab()
+		area.call_deferred("reparent", claw_head)
+		area.call_deferred("set", "position", Vector2.ZERO)
 		call_deferred("_start_retract")
 
 
@@ -115,7 +146,7 @@ func _update_visuals() -> void:
 	claw_head.position = tip
 
 	var open := CLAW_OPEN_ANGLE
-	if grabbed_item:
+	if grabbed:
 		open = 0.1
 
 	claw_left.points = PackedVector2Array([

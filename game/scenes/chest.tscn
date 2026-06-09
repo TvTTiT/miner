@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bchest001goldminer"]
+
+[ext_resource type="Script" path="res://game/entities/treasure_chest.gd" id="1_chest"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_chest"]
+radius = 22.0
+
+[node name="TreasureChest" type="Area2D"]
+script = ExtResource("1_chest")
+
+[node name="Glow" type="Polygon2D" parent="."]
+z_index = -1
+
+[node name="Body" type="Polygon2D" parent="."]
+
+[node name="Lid" type="Polygon2D" parent="."]
+
+[node name="Lock" type="Polygon2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_chest")

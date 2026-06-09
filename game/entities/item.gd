@@ -65,6 +65,15 @@ func _draw_shape() -> void:
 			Vector2(radius * 0.4, radius * 0.3),
 			Vector2(radius, radius * 0.3),
 		])
+	elif item_id == "dynamite":
+		points = PackedVector2Array([
+			Vector2(-radius * 0.35, -radius),
+			Vector2(radius * 0.35, -radius),
+			Vector2(radius * 0.35, radius * 0.5),
+			Vector2(radius * 0.15, radius),
+			Vector2(-radius * 0.15, radius),
+			Vector2(-radius * 0.35, radius * 0.5),
+		])
 
 	sprite.polygon = points
 	sprite.color = item_color

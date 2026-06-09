@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bitem001goldminer"]
 
-[ext_resource type="Script" path="res://scripts/item.gd" id="1_item"]
+[ext_resource type="Script" path="res://game/entities/item.gd" id="1_item"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_item"]
 radius = 14.0
