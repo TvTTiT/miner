@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bvmwtpaf0bipx"]
+
+[ext_resource type="Script" path="res://game/entities/hazards/dragon_guardian.gd" id="1_dragon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dragon"]
+size = Vector2(72, 36)
+
+[node name="DragonGuardian" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_dragon")
+
+[node name="WingLeft" type="Polygon2D" parent="."]
+z_index = -1
+
+[node name="Body" type="Polygon2D" parent="."]
+
+[node name="WingRight" type="Polygon2D" parent="."]
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_dragon")

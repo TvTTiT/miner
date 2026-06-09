@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcavebat001gold"]
+
+[ext_resource type="Script" path="res://game/entities/hazards/cave_bat.gd" id="1_bat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bat"]
+size = Vector2(48, 24)
+
+[node name="CaveBat" type="Area2D"]
+script = ExtResource("1_bat")
+
+[node name="WingLeft" type="Polygon2D" parent="."]
+z_index = -1
+
+[node name="Body" type="Polygon2D" parent="."]
+
+[node name="WingRight" type="Polygon2D" parent="."]
+z_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bat")

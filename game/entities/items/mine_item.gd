@@ -16,6 +16,7 @@ var is_grabbed: bool = false
 
 
 func _ready() -> void:
+	add_to_group("mine_item")
 	_apply_type(item_id)
 	_draw_shape()
 	collision_layer = 2
@@ -73,6 +74,22 @@ func _draw_shape() -> void:
 			Vector2(radius * 0.15, radius),
 			Vector2(-radius * 0.15, radius),
 			Vector2(-radius * 0.35, radius * 0.5),
+		])
+	elif item_id == "cursed_idol":
+		points = PackedVector2Array([
+			Vector2(0, -radius),
+			Vector2(radius * 0.65, -radius * 0.2),
+			Vector2(radius * 0.5, radius * 0.7),
+			Vector2(0, radius),
+			Vector2(-radius * 0.5, radius * 0.7),
+			Vector2(-radius * 0.65, -radius * 0.2),
+		])
+	elif item_id == "cursed_coin":
+		points = PackedVector2Array([
+			Vector2(0, -radius),
+			Vector2(radius * 0.85, 0),
+			Vector2(0, radius),
+			Vector2(-radius * 0.85, 0),
 		])
 
 	sprite.polygon = points

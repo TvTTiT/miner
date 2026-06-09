@@ -11,6 +11,7 @@ const RARITY_COLORS := {
 	"uncommon": Color(0.45, 0.95, 0.55),
 	"rare": Color(0.45, 0.75, 1.0),
 	"epic": Color(0.85, 0.45, 1.0),
+	"fusion": Color(1.0, 0.82, 0.25),
 }
 
 var state: State = State.IDLE
@@ -56,10 +57,16 @@ func _process(delta: float) -> void:
 		)
 
 
-func play(upgrade: Dictionary, shake_target: Node2D, screen_pos: Vector2 = Vector2(480, 360)) -> void:
+func play(
+	upgrade: Dictionary,
+	shake_target: Node2D,
+	screen_pos: Vector2 = Vector2(480, 360),
+	bonus_text: String = "",
+) -> void:
 	if state != State.IDLE:
 		return
 	_upgrade = upgrade
+	_upgrade["bonus_text"] = bonus_text
 	_shake_target = shake_target
 	state = State.PLAYING
 	visible = true
@@ -88,7 +95,10 @@ func _reset_visuals() -> void:
 
 
 func _run_sequence() -> void:
+	var category: String = _upgrade.get("category", "")
 	var rarity: String = _upgrade.get("rarity", "common")
+	if category == "fusion":
+		rarity = "fusion"
 	var rarity_color: Color = RARITY_COLORS.get(rarity, RARITY_COLORS["common"])
 	particles.color = rarity_color
 
@@ -140,7 +150,11 @@ func _show_loot_text(rarity: String, rarity_color: Color) -> void:
 	rarity_label.add_theme_color_override("font_color", rarity_color)
 	name_label.text = _upgrade.get("name", "Mystery Buff")
 	name_label.add_theme_color_override("font_color", Color(1.0, 0.92, 0.55))
-	desc_label.text = _upgrade.get("desc", "")
+	var desc: String = _upgrade.get("desc", "")
+	var bonus: String = _upgrade.get("bonus_text", "")
+	if bonus != "":
+		desc = "%s\n%s" % [desc, bonus]
+	desc_label.text = desc
 	prompt_label.text = "SPACE / Click — Continue"
 
 

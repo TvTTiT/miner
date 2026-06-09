@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://du06lib2miiuf"]
 
-[ext_resource type="Script" uid="uid://bc4sud5g72ynb" path="res://game/systems/game_manager.gd" id="1_main"]
-[ext_resource type="PackedScene" uid="uid://d0w2wnpmk55e4" path="res://game/scenes/miner.tscn" id="2_miner"]
-[ext_resource type="PackedScene" uid="uid://bchestcin001gold" path="res://game/scenes/chest_cinematic.tscn" id="3_cinematic"]
+[ext_resource type="Script" uid="uid://bc4sud5g72ynb" path="res://game/controllers/game_controller.gd" id="1_main"]
+[ext_resource type="PackedScene" uid="uid://d0w2wnpmk55e4" path="res://game/scenes/player/miner.tscn" id="2_miner"]
+[ext_resource type="PackedScene" uid="uid://bchestcin001gold" path="res://game/scenes/ui/chest_cinematic.tscn" id="3_cinematic"]
+[ext_resource type="PackedScene" uid="uid://blootfb001goldminer" path="res://game/scenes/ui/loot_feedback.tscn" id="4_feedback"]
+[ext_resource type="PackedScene" uid="uid://blootselect001gold" path="res://game/scenes/ui/loot_selector.tscn" id="5_selector"]
+[ext_resource type="PackedScene" uid="uid://btimepress001gold" path="res://game/scenes/ui/time_pressure.tscn" id="6_time"]
 
 [node name="Main" type="Node2D" unique_id=1757981366]
 script = ExtResource("1_main")
@@ -19,12 +22,23 @@ script = ExtResource("1_main")
 
 [node name="ChestCinematic" parent="." instance=ExtResource("3_cinematic")]
 
+[node name="LootFeedback" parent="." instance=ExtResource("4_feedback")]
+
+[node name="LootSelector" parent="." instance=ExtResource("5_selector")]
+
+[node name="TimePressure" parent="." instance=ExtResource("6_time")]
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1643624211]
 
 [node name="Panel" type="ColorRect" parent="HUD" unique_id=630893830]
 offset_right = 960.0
-offset_bottom = 56.0
-color = Color(0.1, 0.08, 0.06, 0.75)
+offset_bottom = 72.0
+color = Color(0.08, 0.06, 0.12, 0.88)
+
+[node name="PanelAccent" type="ColorRect" parent="HUD"]
+offset_right = 960.0
+offset_bottom = 3.0
+color = Color(0.95, 0.72, 0.22, 0.9)
 
 [node name="ScoreLabel" type="Label" parent="HUD" unique_id=1067240602]
 offset_left = 20.0
@@ -62,6 +76,46 @@ theme_override_colors/font_color = Color(0.85, 0.75, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Run: $0"
 
+[node name="ComboTierLabel" type="Label" parent="HUD"]
+offset_left = 20.0
+offset_top = 58.0
+offset_right = 200.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.55, 0.95, 0.72, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+
+[node name="ComboBar" type="ColorRect" parent="HUD"]
+offset_left = 20.0
+offset_top = 84.0
+offset_right = 220.0
+offset_bottom = 90.0
+color = Color(0.15, 0.14, 0.2, 0.9)
+
+[node name="ComboBarFill" type="ColorRect" parent="HUD/ComboBar"]
+offset_right = 0.0
+offset_bottom = 6.0
+color = Color(0.55, 0.95, 0.72, 1)
+
+[node name="ComboLabel" type="Label" parent="HUD"]
+offset_left = 210.0
+offset_top = 58.0
+offset_right = 620.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.55, 1, 0.65, 1)
+theme_override_font_sizes/font_size = 14
+text = ""
+
+[node name="LoadoutLabel" type="Label" parent="HUD"]
+offset_left = 620.0
+offset_top = 58.0
+offset_right = 940.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.85, 0.8, 1, 0.85)
+theme_override_font_sizes/font_size = 14
+text = "T Iron Claw 1"
+horizontal_alignment = 2
+
 [node name="TimerLabel" type="Label" parent="HUD" unique_id=515660333]
 offset_left = 780.0
 offset_top = 12.0
@@ -79,7 +133,7 @@ offset_right = 660.0
 offset_bottom = 630.0
 theme_override_colors/font_color = Color(1, 1, 1, 0.6)
 theme_override_font_sizes/font_size = 16
-text = "Space — Claw  |  Hook chests for loot  |  ESC — Pause"
+text = "Space — Drop hook  |  ESC — Pause  |  Chain grabs for combo tiers!"
 horizontal_alignment = 1
 
 [node name="Overlay" type="CanvasLayer" parent="." unique_id=1377063107]

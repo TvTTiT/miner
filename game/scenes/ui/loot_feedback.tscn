@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://biop701cs8bht"]
+
+[ext_resource type="Script" path="res://game/ui/loot_feedback.gd" id="1_fb"]
+
+[node name="LootFeedback" type="CanvasLayer"]
+layer = 15
+script = ExtResource("1_fb")
+
+[node name="Flash" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 960.0
+offset_bottom = 640.0
+mouse_filter = 2
+color = Color(1, 0.2, 0.2, 1)

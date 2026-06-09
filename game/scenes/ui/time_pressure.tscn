@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://btimepress001gold"]
+
+[ext_resource type="Script" path="res://game/ui/time_pressure.gd" id="1_tp"]
+
+[node name="TimePressure" type="CanvasLayer"]
+layer = 12
+script = ExtResource("1_tp")
+
+[node name="Vignette" type="ColorRect" parent="."]
+offset_right = 960.0
+offset_bottom = 640.0
+mouse_filter = 2
+color = Color(0.85, 0.08, 0.05, 1)
+
+[node name="HurryLabel" type="Label" parent="."]
+offset_left = 380.0
+offset_top = 88.0
+offset_right = 580.0
+offset_bottom = 148.0
+theme_override_colors/font_color = Color(1, 0.25, 0.2, 1)
+theme_override_font_sizes/font_size = 48
+text = "HURRY!"
+horizontal_alignment = 1

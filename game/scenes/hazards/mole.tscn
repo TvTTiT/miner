@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://btunnelmole01gold"]
+
+[ext_resource type="Script" path="res://game/entities/hazards/tunnel_mole.gd" id="1_mole"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mole"]
+radius = 18.0
+
+[node name="TunnelMole" type="Area2D"]
+script = ExtResource("1_mole")
+
+[node name="Mound" type="Polygon2D" parent="."]
+
+[node name="Head" type="Polygon2D" parent="."]
+position = Vector2(0, 4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_mole")

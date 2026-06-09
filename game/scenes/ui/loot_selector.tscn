@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://c83qk4cnlefc0"]
+
+[ext_resource type="Script" uid="uid://blootselectscript01" path="res://game/ui/loot_selector.gd" id="1_selector"]
+
+[node name="LootSelector" type="CanvasLayer"]
+layer = 18
+visible = false
+script = ExtResource("1_selector")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 960.0
+offset_bottom = 640.0
+mouse_filter = 2
+color = Color(0.06, 0.04, 0.02, 0.88)
+
+[node name="Root" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -280.0
+offset_right = 460.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 36
+text = "MERCHANT'S WAGON"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+text = "Tools & skills fuse into evolved gear"
+horizontal_alignment = 1
+
+[node name="OwnedLabel" type="Label" parent="Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.78, 0.95, 0.75)
+theme_override_font_sizes/font_size = 13
+text = "Current loadout"
+horizontal_alignment = 1
+
+[node name="PreviewLabel" type="Label" parent="Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.78, 0.42, 1)
+theme_override_font_sizes/font_size = 14
+text = "Next descent preview"
+horizontal_alignment = 1
+
+[node name="CardsRow" type="HBoxContainer" parent="Root"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="RecipeLabel" type="Label" parent="Root"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.72, 0.88, 0.9)
+theme_override_font_sizes/font_size = 13
+text = "Fusion recipes appear here"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HintLabel" type="Label" parent="Root"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 14
+text = "Buy one upgrade  ·  Click card or press 1 / 2 / 3"
+horizontal_alignment = 1

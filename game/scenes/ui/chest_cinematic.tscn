@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bchestcin001gold"]
 
-[ext_resource type="Script" path="res://game/systems/chest_cinematic.gd" id="1_cin"]
+[ext_resource type="Script" path="res://game/ui/chest_cinematic.gd" id="1_cin"]
 
 [node name="ChestCinematic" type="CanvasLayer"]
 layer = 20

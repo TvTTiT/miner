@@ -2,101 +2,115 @@
 
 A roguelike take on the classic claw-mining arcade game, built in **Godot 4.6**.
 
-Drop your claw, haul up gold and gems, dodge rocks and dynamite, and survive as many procedurally generated floors as you can. Each run is permadeath — fail a floor and you start over.
+Drop your claw, chain valuable grabs for combo multipliers, draft tools and skills from chests, **fuse them into evolved gear**, and survive procedurally generated floors.
 
 ## How to Play
 
-1. Open the project in Godot 4.6+ and press **F5** (or click Play).
-2. Press **Space** or **left-click** to drop the claw while it swings.
-3. Hit the floor goal before the timer runs out to advance.
-4. **Hook treasure chests** underground for random stat drops mid-floor.
-5. After clearing a floor, a **reward chest cinematic** grants another random buff.
-6. Keep descending until you miss a goal — then the run ends.
+1. Open the project in Godot 4.6+ and press **F5**.
+2. Press **Space** or **left-click** to drop the claw.
+3. Chain gold and gems to build **combo multipliers**.
+4. Clear the floor goal before time runs out.
+5. Open chests — **pick 1 of 3** tools, skills, or fusions with keys **1**, **2**, **3**.
+6. Collect matching pairs to unlock **fused evolved gear**.
+7. Keep descending until you miss a goal.
+
+## Loadout System (VS-style)
+
+
+| Type       | Tag | Description                                         |
+| ---------- | --- | --------------------------------------------------- |
+| **Tool**   | T   | Active gear — claw reach, blast rig, etc.           |
+| **Skill**  | S   | Passive buff — reel speed, rope length, spawn luck  |
+| **Fusion** | F   | Evolved form — requires both parents, replaces them |
+
+
+Each tool/skill levels **1 → 3** from repeat chest picks. When you own both parents of a recipe, a **★ FUSION** option can appear in the draft.
+
+### Fusion recipes
+
+
+| Fusion             | Parents                  | Effect                      |
+| ------------------ | ------------------------ | --------------------------- |
+| **Sky Drill**      | Long Rope + Quick Reel   | Massive reach & reel speed  |
+| **Snap Claw**      | Fast Swing + Steady Hand | Lightning swing & drop      |
+| **Treasure Sense** | Magnet Hook + Prospector | Huge grab zone & gem luck   |
+| **Titan Grip**     | Iron Claw + Light Touch  | Heavy haul specialist       |
+| **Gold Hour**      | Gold Rush + Lucky Watch  | Floods of gold + extra time |
+| **Shatter Core**   | Blast Rig + Quick Reel   | Explosive speed demon       |
+
+
+Recipe progress shows on the chest screen (`✓` = owned, `○` = missing). Pause menu (ESC) also lists active fusion paths.
+
+### Tools
+
+
+| Tool        | Effect per level                            |
+| ----------- | ------------------------------------------- |
+| Iron Claw   | +10% reel (starter, always owned)           |
+| Magnet Hook | +12% claw grab radius                       |
+| Blast Rig   | +25% dynamite radius, −40% dynamite penalty |
+
+
+### Skills
+
+
+| Skill       | Effect per level       |
+| ----------- | ---------------------- |
+| Quick Reel  | +12% retract speed     |
+| Long Rope   | +12% max rope          |
+| Fast Swing  | +12% swing speed       |
+| Steady Hand | +12% extend speed      |
+| Light Touch | +12% weight resistance |
+| Lucky Watch | +5 seconds each floor  |
+| Gold Rush   | More gold spawns       |
+| Prospector  | Better diamond odds    |
+
 
 ## Roguelike Features
 
-| Feature | Description |
-|---------|-------------|
-| **Procedural floors** | Item layout, types, and positions are randomly generated each floor from a run seed |
-| **Permadeath** | Missing a floor goal ends the entire run |
-| **Structured veins** | Gold spawns in readable vertical lanes — shallow nuggets, deeper bigger hauls |
-| **Scaling difficulty** | Goals rise and timers tighten as you go deeper |
-| **Treasure chests** | Random stat loot with rarity tiers and cinematic reveals |
-| **Run records** | Best depth and best total earnings are saved locally |
 
-## Items
+| Feature                    | Description                                                |
+| -------------------------- | ---------------------------------------------------------- |
+| **Combo streaks**          | x1.25 / x1.5 / x2.0 multipliers for chained valuable grabs |
+| **Tool fusion tree**       | Mix tools + skills into evolved forms                      |
+| **Dragon guardians**       | Patrolling lane hazards                                    |
+| **Jackpot Vaults**         | Rare dense-loot floors                                     |
+| **Cursed loot & dynamite** | Risk/reward hazards                                        |
+| **Treasure chests**        | Mid-floor and floor-clear draft picks                      |
 
-| Item | Value | Notes |
-|------|-------|-------|
-| Small Gold | $50 | Light, fast to reel in |
-| Medium Gold | $100 | Moderate weight |
-| Large Gold | $250 | Heavy — slows the claw |
-| Diamond | $500 | Rare, light, high value |
-| Rock | $11 | Very heavy |
-| Bone | $3 | Light junk |
-| Dynamite | −$150 | **Avoid!** Penalizes your earnings |
-
-## Upgrades
-
-- **Quick Reel** — Reel in 30% faster
-- **Long Rope** — Reach 20% farther underground
-- **Fast Swing** — Swing 25% faster for better aim
-- **Light Touch** — Heavy items slow you less
-- **Lucky Watch** — +8 seconds on every floor
-- **Gold Rush** — More gold spawns on future floors
-- **Prospector** — Better diamond odds on future floors
-- **Steady Hand** — Claw extends 20% faster
-
-Each upgrade can only be taken once per run. Chests roll rarity-weighted loot (common → epic).
-
-### Chest loot rarities
-
-| Rarity | Color | Examples |
-|--------|-------|----------|
-| Common | Gray | Quick Reel, Long Rope, Fast Swing |
-| Uncommon | Green | Light Touch, Lucky Watch |
-| Rare | Blue | Gold Rush, Prospector |
-| Epic | Purple | Steady Hand |
 
 ## Controls
 
-| Input | Action |
-|-------|--------|
-| Space / Left Click | Drop claw (title & game over: start / retry) |
-| ESC | Pause (resume with ESC again) |
-| N (while paused) | Start a new run |
-| Space / Click (after chest opens) | Continue after loot reveal |
 
-Floor goals are set from the **actual treasure on the map** (~55% of total gold value), so clearing every item always completes the floor.
+| Input                   | Action                       |
+| ----------------------- | ---------------------------- |
+| Space / Left Click      | Drop claw                    |
+| 1 / 2 / 3               | Pick chest draft option      |
+| ESC                     | Pause (shows fusion recipes) |
+| N (paused)              | New run                      |
+| Space (after cinematic) | Continue                     |
+
 
 ## Project Structure
 
 ```
 game/
-  data/                 # Static definitions (items, upgrades, floor generation)
+  data/
+    tool_data.gd        # Tools, skills, fusion recipes
     level_data.gd
-    upgrade_data.gd
-  systems/              # Game loop, persistence, cinematics
+    upgrade_data.gd     # Legacy alias
+  systems/
+    run_loadout.gd      # Levels, drafts, modifiers, fusion logic
     game_manager.gd
-    run_save.gd
+    combo_system.gd
     chest_cinematic.gd
-  entities/             # In-game nodes and behaviors
-    claw.gd
-    miner.gd
-    item.gd
-    treasure_chest.gd
-  scenes/               # Godot scenes
-    main.tscn
-    miner.tscn
-    item.tscn
-    chest.tscn
-    chest_cinematic.tscn
-assets/
-  icons/                # Project icon
-addons/
-  godot_ai/             # Editor MCP plugin (local install)
+    loot_feedback.gd
+  entities/
+    claw.gd, miner.gd, item.gd, treasure_chest.gd, dragon_guardian.gd
+  scenes/
 ```
 
 ## Requirements
 
 - Godot 4.6 (GL Compatibility renderer)
+
